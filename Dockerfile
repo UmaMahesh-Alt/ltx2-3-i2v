@@ -152,4 +152,4 @@ else
 fi
 EOF
 
-chmod +x /start.sh
+RUN chmod +x /start.sh

@@ -1,6 +1,9 @@
 # clean base image containing only comfyui, comfy-cli and comfyui-manager
 FROM runpod/worker-comfyui:5.8.4-base
 
+# Busts the Docker cache - change this value to force rebuild
+ARG CACHE_BUST=1
+
 # build-time tokens for gated downloads — never baked into final image.
 # pass via: docker build --build-arg HF_TOKEN=$HF_TOKEN ...
 ARG HF_TOKEN=""
@@ -60,8 +63,8 @@ RUN cat > /start.sh << 'EOF'
 echo "worker-comfyui: Setting up network volume symlinks..."
 
 # Ensure volume directories exist
-mkdir -p /runpod-volume/input
-mkdir -p /runpod-volume/output
+# mkdir -p /runpod-volume/input
+# mkdir -p /runpod-volume/output
 
 # Remove old symlinks if they exist
 rm -f /comfyui/input /comfyui/output
@@ -71,8 +74,8 @@ ln -s /runpod-volume /comfyui/input
 ln -s /runpod-volume /comfyui/output
 
 echo "worker-comfyui: Symlinks created:"
-echo "  /comfyui/input → /runpod-volume/input"
-echo "  /comfyui/output → /runpod-volume/output"
+echo "  /comfyui/input → /runpod-volume"
+echo "  /comfyui/output → /runpod-volume"
 
 # =========================================================================
 # ORIGINAL start.sh CONTENT BELOW

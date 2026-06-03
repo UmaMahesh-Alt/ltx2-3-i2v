@@ -2,7 +2,7 @@
 FROM runpod/worker-comfyui:5.8.4-base
 
 # Busts the Docker cache - change this value to force rebuild
-ARG CACHE_BUST=1
+#ARG CACHE_BUST=1
 
 # build-time tokens for gated downloads — never baked into final image.
 # pass via: docker build --build-arg HF_TOKEN=$HF_TOKEN ...
@@ -153,6 +153,4 @@ else
     echo "worker-comfyui: Starting RunPod Handler"
     python -u /handler.py
 fi
-EOF
-
-RUN chmod +x /start.sh
+EOF && chmod +x /start.sh

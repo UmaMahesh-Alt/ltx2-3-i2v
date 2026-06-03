@@ -54,7 +54,7 @@ RUN wget --progress=dot:giga -O '/comfyui/input/egyptian_queen.png' "https://coo
 # =========================================================================
 # STEP 2: Override start.sh with network volume symlink setup
 # =========================================================================
-RUN cat > /start.sh << 'EOF'
+RUN cat > /start.sh << 'EOF' && chmod +x /start.sh
 #!/usr/bin/env bash
 
 # =========================================================================
@@ -153,4 +153,4 @@ else
     echo "worker-comfyui: Starting RunPod Handler"
     python -u /handler.py
 fi
-EOF && chmod +x /start.sh
+EOF
